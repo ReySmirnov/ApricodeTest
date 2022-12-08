@@ -1,50 +1,64 @@
 import React from "react";
 import { Field, Form } from "react-final-form";
 import { Box, Button, TextField, Typography } from "@mui/material";
+import { validation } from "./helpers";
 
+export type FormValues = { login: string; password: string };
 const AuthForm = () => {
-  const onSubmit = (values: object) => {
+  const onSubmit = (values: FormValues) => {
     window.alert(JSON.stringify(values));
   };
 
   return (
     <Form
       onSubmit={onSubmit}
+      validate={(values) => {
+        console.log("validation", values);
+        return validation(values);
+      }}
       render={({ handleSubmit, form, submitting, pristine }) => (
         <form onSubmit={handleSubmit}>
-          <Field name="loginInput">
+          <Field name="login">
             {(props) => (
               <Box mt={1} display="flex" flexDirection="column">
-                <label htmlFor="loginInput">
-                  <Typography variant="h6" textTransform='capitalize'>логин</Typography>
+                <label htmlFor="login">
+                  <Typography variant="h6" textTransform="capitalize">
+                    логин
+                  </Typography>
                 </label>
                 <TextField
                   {...props.input}
-                  id="loginInput"
+                  id="login"
                   size="small"
                   variant="outlined"
-                  placeholder="Введите логин"
+                  placeholder="введите логин"
+                  error={props.meta.touched && props.meta.invalid}
+                  helperText={props.meta.touched && props.meta.error}
                 />
               </Box>
             )}
           </Field>
-          <Field name="loginPassword">
+          <Field name="password">
             {(props) => (
               <Box mt={1} display="flex" flexDirection="column">
-                <label htmlFor="loginPassword">
-                  <Typography variant="h6" textTransform='capitalize'>пароль</Typography>
+                <label htmlFor="password">
+                  <Typography variant="h6" textTransform="capitalize">
+                    пароль
+                  </Typography>
                 </label>
                 <TextField
                   {...props.input}
-                  id="loginPassword"
+                  id="password"
+                  type="password"
                   size="small"
                   variant="outlined"
-                  placeholder="Введите пароль"
+                  placeholder="введите пароль"
+                  error={props.meta.touched && props.meta.invalid}
+                  helperText={props.meta.touched && props.meta.error}
                 />
               </Box>
             )}
           </Field>
-
           <Box display="flex" justifyContent="center">
             <Box mt={2} mr={2}>
               <Button
@@ -60,7 +74,9 @@ const AuthForm = () => {
             <Box mt={2}>
               <Button
                 type="button"
-                onClick={form.reset}
+                onClick={() => {
+                  form.reset();
+                }}
                 disabled={submitting || pristine}
                 size="small"
                 variant="outlined"
