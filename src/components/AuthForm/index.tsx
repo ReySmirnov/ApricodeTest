@@ -2,20 +2,21 @@ import React from "react";
 import { Field, Form } from "react-final-form";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { validation } from "./helpers";
+import { SubmissionErrors } from "final-form";
 
 export type FormValues = { login: string; password: string };
 
 type AuthFormProps = {
-  onSubmit: (values: FormValues) => Promise<Record<string, string>>;
+  onSubmit: (values: FormValues) => Promise<void | SubmissionErrors>;
 };
 const AuthForm = ({ onSubmit }: AuthFormProps) => {
   return (
     <Form
       onSubmit={onSubmit}
       validate={(values) => {
-        return validation(values);
+          return validation(values);
       }}
-      render={({ handleSubmit, form, submitting, pristine }) => (
+      render={({ handleSubmit, form, submitting, pristine, submitError }) => (
         <form onSubmit={handleSubmit}>
           <Field name="login">
             {(props) => (
@@ -31,7 +32,9 @@ const AuthForm = ({ onSubmit }: AuthFormProps) => {
                   size="small"
                   variant="outlined"
                   placeholder="введите логин"
-                  error={props.meta.touched && props.meta.invalid}
+                  error={
+                    props.meta.touched && props.meta.invalid && submitError
+                  }
                   helperText={props.meta.touched && props.meta.error}
                 />
               </Box>
@@ -52,7 +55,9 @@ const AuthForm = ({ onSubmit }: AuthFormProps) => {
                   size="small"
                   variant="outlined"
                   placeholder="введите пароль"
-                  error={props.meta.touched && props.meta.invalid}
+                  error={
+                    props.meta.touched && props.meta.invalid && submitError
+                  }
                   helperText={props.meta.touched && props.meta.error}
                 />
               </Box>
@@ -62,7 +67,7 @@ const AuthForm = ({ onSubmit }: AuthFormProps) => {
             <Box mt={2} mr={2}>
               <Button
                 type="submit"
-                disabled={submitting || pristine}
+                disabled={submitting || pristine || submitError}
                 size="small"
                 variant="contained"
                 color="primary"
@@ -74,7 +79,7 @@ const AuthForm = ({ onSubmit }: AuthFormProps) => {
               <Button
                 type="button"
                 onClick={() => {
-                  form.reset();
+                  form.reset(); submitError.reset();
                 }}
                 disabled={submitting || pristine}
                 size="small"
@@ -84,6 +89,11 @@ const AuthForm = ({ onSubmit }: AuthFormProps) => {
                 <Typography variant="body1">очистить</Typography>
               </Button>
             </Box>
+          </Box>
+          <Box mt={1}>
+            <Typography whiteSpace="pre-wrap" variant="body2" color="red">
+              {submitError}
+            </Typography>
           </Box>
         </form>
       )}
