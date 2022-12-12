@@ -4,16 +4,15 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import { validation } from "./helpers";
 
 export type FormValues = { login: string; password: string };
-const AuthForm = () => {
-  const onSubmit = (values: FormValues) => {
-    window.alert(JSON.stringify(values));
-  };
 
+type AuthFormProps = {
+  onSubmit: (values: FormValues) => Promise<Record<string, string>>;
+};
+const AuthForm = ({ onSubmit }: AuthFormProps) => {
   return (
     <Form
       onSubmit={onSubmit}
       validate={(values) => {
-        console.log("validation", values);
         return validation(values);
       }}
       render={({ handleSubmit, form, submitting, pristine }) => (

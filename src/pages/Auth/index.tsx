@@ -1,8 +1,10 @@
 import React from "react";
 import { Box, Paper, Typography } from "@mui/material";
 import AuthForm from "../../components/AuthForm";
+import { auth } from "../../services/auth";
 
 const Auth = () => {
+
   return (
     <Box
       display="flex"
@@ -15,7 +17,7 @@ const Auth = () => {
           <Typography variant="h5" textTransform="capitalize">
             авторизация
           </Typography>
-          <AuthForm />
+          <AuthForm onSubmit={auth} />
         </Box>
       </Paper>
     </Box>

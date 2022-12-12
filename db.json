@@ -1,0 +1,9 @@
+{
+  "api": {
+    "auth": {
+      "login": "admin"
+    }
+  }
+}
+
+
