@@ -1,16 +1,19 @@
-import { Box, Paper, Typography } from "@mui/material";
-import React from "react";
+import { Box, CircularProgress, Paper, Typography } from "@mui/material";
+import React, { useContext, useEffect } from "react";
 import ToDoList from "../../components/ToDoList";
+import { getToDo } from "../../services/getToDo";
+import { observer } from "mobx-react-lite";
+import { ToDoData } from "../../components/ToDoListContext";
 
-let listData = [
-  { id: 0, done: true, body: "ToDo" },
-  { id: 1, done: false, body: "ToDo" },
-  { id: 2, done: true, body: "ToDo" },
-  { id: 3, done: true, body: "ToDo" },
-  { id: 4, done: true, body: "ToDo" },
-];
+const ToDoListPage = observer(() => {
+  const { setToDoList, toDoListData } = useContext(ToDoData);
 
-const ToDoListPage = () => {
+  useEffect(() => {
+    getToDo().then((res) => {
+      setToDoList(res);
+    });
+  }, []);
+
   return (
     <Box
       display="flex"
@@ -25,12 +28,12 @@ const ToDoListPage = () => {
             <Typography variant="h5" textAlign="center">
               To Do List
             </Typography>
-            <ToDoList listData={listData} />
+            {toDoListData ? <ToDoList listData={toDoListData} /> : <CircularProgress />}
           </Box>
         </Box>
       </Paper>
     </Box>
   );
-};
+});
 
 export default ToDoListPage;
