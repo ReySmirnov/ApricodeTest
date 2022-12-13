@@ -13,7 +13,7 @@ server.use(middlewares);
 server.use(jsonServer.bodyParser);
 server.post("/api/auth", (req, res) => {
   if (req.body.login === "admin" && req.body.password === "admin") {
-    res.jsonp(req.body);
+    res.jsonp({"name":"admin"});
   } else {
     res.sendStatus(401);
   }
