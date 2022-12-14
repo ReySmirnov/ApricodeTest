@@ -25,3 +25,8 @@ export const deleteToDo = (id:number):Promise<ToDoProps> =>
     axios.post(`/api/toDoList/${id}/delete`).then((res:AxiosResponse<ToDoProps>)=>{
         return res.data
     })
+
+export const addToDo = (body:{inputToDo:string}):Promise<ToDoProps> =>
+    axios.post("/api/toDoList", body ).then((res:AxiosResponse<ToDoProps>)=>{
+        return res.data
+    })
