@@ -54,7 +54,7 @@ server.get(
 );
 
 server.get(
-  "/api/toDoList/:id/unDone",
+  "/api/toDoList/:id/undone",
   checkValidParamIdMiddleware,
   (req, res) => {
     const index = getToDoIndexById(Number(req.params.id));

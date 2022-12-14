@@ -15,16 +15,14 @@ const ToDoListPage = observer(() => {
     setCurrentFilter({ doneStatus: status });
   };
 
-  const handleToDoAdded = () => {
-    getToDo().then((res) => {
+  const handleGetToDo = () => {
+    getToDo(toDoListFilter).then((res) => {
       setToDoList(res);
     });
   };
 
   useEffect(() => {
-    getToDo(toDoListFilter).then((res) => {
-      setToDoList(res);
-    });
+    handleGetToDo();
   }, [toDoListFilter]);
 
   return (
@@ -55,13 +53,17 @@ const ToDoListPage = observer(() => {
             </Box>
             <Box minHeight={200}>
               {toDoListData ? (
-                <ToDoList listData={toDoListData} setToDoList={setToDoList} />
+                <ToDoList
+                  onDeletedElement={handleGetToDo}
+                  onStatusChanged={handleGetToDo}
+                  listData={toDoListData}
+                />
               ) : (
                 <CircularProgress />
               )}
             </Box>
             <Box textAlign="center">
-              <AddToDoPopover onToDoAdded={handleToDoAdded} />
+              <AddToDoPopover onToDoAdded={handleGetToDo} />
             </Box>
           </Box>
         </Box>
