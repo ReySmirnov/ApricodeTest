@@ -20,7 +20,8 @@
 
 
 # Запуск
-1. Запустить json-server "server.js" `npm run start-server`
+1. Установить npm зависимости `npm install`
+2. Запустить json-server "server.js" `npm run start-server`
 2.  - Для запуска в режиме production выполнить `npm run build` и `npm run preview`. [Откройте приложение](http://localhost:4173/)
     - Для запуска в ружиме development выполнить `npm run dev`. [Откройте приложение](http://localhost:5173/)
 3. Для авторизации введите логин "admin" и пароль "admin"
