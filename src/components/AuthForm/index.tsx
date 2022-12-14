@@ -16,7 +16,16 @@ const AuthForm = ({ onSubmit }: AuthFormProps) => {
       validate={(values) => {
         return validation(values);
       }}
-      render={({ handleSubmit, form, submitting, pristine, submitError }) => (
+      render={({
+        handleSubmit,
+        form,
+        submitting,
+        pristine,
+        submitError,
+        hasValidationErrors,
+        hasSubmitErrors,
+        modifiedSinceLastSubmit,
+      }) => (
         <form onSubmit={handleSubmit}>
           <Field name="login">
             {(props) => (
@@ -32,9 +41,7 @@ const AuthForm = ({ onSubmit }: AuthFormProps) => {
                   size="small"
                   variant="outlined"
                   placeholder="введите логин"
-                  error={
-                    props.meta.touched && props.meta.invalid && submitError
-                  }
+                  error={props.meta.touched && props.meta.invalid}
                   helperText={props.meta.touched && props.meta.error}
                 />
               </Box>
@@ -55,9 +62,7 @@ const AuthForm = ({ onSubmit }: AuthFormProps) => {
                   size="small"
                   variant="outlined"
                   placeholder="введите пароль"
-                  error={
-                    props.meta.touched && props.meta.invalid && submitError
-                  }
+                  error={props.meta.touched && props.meta.invalid}
                   helperText={props.meta.touched && props.meta.error}
                 />
               </Box>
@@ -67,7 +72,12 @@ const AuthForm = ({ onSubmit }: AuthFormProps) => {
             <Box mt={2} mr={2}>
               <Button
                 type="submit"
-                disabled={submitting || pristine || submitError}
+                disabled={
+                  hasValidationErrors ||
+                  submitting ||
+                  pristine ||
+                  (hasSubmitErrors && !modifiedSinceLastSubmit)
+                }
                 size="small"
                 variant="contained"
                 color="primary"
