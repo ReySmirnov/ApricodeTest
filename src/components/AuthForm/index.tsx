@@ -5,16 +5,16 @@ import { validation } from "./helpers";
 import { SubmissionErrors } from "final-form";
 
 export type FormValues = { login: string; password: string };
-
 type AuthFormProps = {
   onSubmit: (values: FormValues) => Promise<void | SubmissionErrors>;
 };
+
 const AuthForm = ({ onSubmit }: AuthFormProps) => {
   return (
     <Form
       onSubmit={onSubmit}
       validate={(values) => {
-          return validation(values);
+        return validation(values);
       }}
       render={({ handleSubmit, form, submitting, pristine, submitError }) => (
         <form onSubmit={handleSubmit}>
@@ -79,7 +79,8 @@ const AuthForm = ({ onSubmit }: AuthFormProps) => {
               <Button
                 type="button"
                 onClick={() => {
-                  form.reset(); submitError.reset();
+                  form.reset();
+                  submitError.reset();
                 }}
                 disabled={submitting || pristine}
                 size="small"

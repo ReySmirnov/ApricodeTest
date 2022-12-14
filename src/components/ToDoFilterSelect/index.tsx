@@ -4,34 +4,52 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { getToDoFilters } from "../../services/getToDo";
+import { DoneStatus } from "../../services/getToDo";
+import { Typography } from "@mui/material";
 
 type ToDoFilterSelectProps = {
-  onChangeFilter: (filter: getToDoFilters) => void;
-  filter: getToDoFilters;
+  onChangeStatus: (status: DoneStatus) => void;
+  status: DoneStatus;
 };
 
+const selectOptions: { value: DoneStatus; label: string }[] = [
+  {
+    value: "all",
+    label: "все",
+  },
+  {
+    value: "done",
+    label: "выполненные",
+  },
+  {
+    value: "undone",
+    label: "не выполненные",
+  },
+];
+
 const ToDoFilterSelect = ({
-  onChangeFilter,
-  filter,
+  onChangeStatus,
+  status,
 }: ToDoFilterSelectProps) => {
-  const handleChange = (event: SelectChangeEvent) => {
-    onChangeFilter({ doneStatus: event.target.value } as getToDoFilters);
+  const handleChange = (event: SelectChangeEvent<DoneStatus>) => {
+    onChangeStatus(event.target.value as DoneStatus);
   };
 
   return (
     <Box minWidth={200}>
       <FormControl size="small" fullWidth>
         <InputLabel id="selectFilter">Фильтр</InputLabel>
-        <Select
+        <Select<DoneStatus>
           labelId="selectFilter"
-          value={filter.doneStatus}
+          value={status}
           label="Фильтр"
           onChange={handleChange}
         >
-          <MenuItem value={"all"}>все</MenuItem>
-          <MenuItem value={"done"}>выполненные</MenuItem>
-          <MenuItem value={"undone"}>не выполненные</MenuItem>
+          {selectOptions.map(({ value, label }) => (
+            <MenuItem key={value} value={value}>
+              <Typography>{label}</Typography>
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
     </Box>

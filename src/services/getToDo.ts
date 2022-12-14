@@ -2,7 +2,8 @@ import axios, { AxiosResponse } from "axios";
 
 export type ToDoProps = { id: number; done: boolean; body: string }[];
 
-export type getToDoFilters = {doneStatus?:'done'|'undone'|'all'}
+export type getToDoFilters = {doneStatus?:DoneStatus}
+export type DoneStatus = 'done'|'undone'|'all'
 
 export const getToDo = (filter?:getToDoFilters): Promise<ToDoProps> =>
   axios.get("/api/toDoList", {params:filter}).then((res: AxiosResponse<ToDoProps>) => {

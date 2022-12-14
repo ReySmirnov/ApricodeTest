@@ -1,12 +1,20 @@
 import { Field, Form } from "react-final-form";
 import { Box, TextField, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Button from "@mui/material/Button";
 import { validationToDoForm } from "./helpers";
 
 type AddToDoFormProps = { onSubmit: (body: { inputToDo: string }) => void };
 
 const AddToDoForm = ({ onSubmit }: AddToDoFormProps) => {
+  const inputAnchor = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (inputAnchor.current) {
+      inputAnchor.current.focus();
+    }
+  }, []);
+
   return (
     <Form
       onSubmit={onSubmit}
@@ -41,6 +49,7 @@ const AddToDoForm = ({ onSubmit }: AddToDoFormProps) => {
                         size="small"
                         variant="outlined"
                         placeholder="введите текст"
+                        inputRef={inputAnchor}
                         disabled={submitting}
                         error={props.meta.touched && props.meta.invalid}
                         helperText={

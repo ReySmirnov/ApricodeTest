@@ -5,16 +5,16 @@ import Button from "@mui/material/Button";
 import { Box } from "@mui/material";
 import PopoverContent from "./PopoverContent";
 
-type AddToDoPopover = {onToDoAdd:()=>void}
+type AddToDoPopover = { onToDoAdd: () => void };
 
-const AddToDoPopover = ({onToDoAdd}:AddToDoPopover) => {
+const AddToDoPopover = ({ onToDoAdd }: AddToDoPopover) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const anchorEl = useRef(null);
 
   const handleToDoAdd = () => {
-      onToDoAdd()
-      setIsOpen(false)
-  }
+    onToDoAdd();
+    setIsOpen(false);
+  };
 
   return (
     <Box>
