@@ -9,7 +9,7 @@ import { Typography } from "@mui/material";
 
 type ToDoFilterSelectProps = {
   onChangeStatus: (status: DoneStatus) => void;
-  status: DoneStatus;
+  status?: DoneStatus;
 };
 
 const selectOptions: { value: DoneStatus; label: string }[] = [
@@ -29,7 +29,7 @@ const selectOptions: { value: DoneStatus; label: string }[] = [
 
 const ToDoFilterSelect = ({
   onChangeStatus,
-  status,
+  status = 'all',
 }: ToDoFilterSelectProps) => {
   const handleChange = (event: SelectChangeEvent<DoneStatus>) => {
     onChangeStatus(event.target.value as DoneStatus);

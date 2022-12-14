@@ -72,7 +72,7 @@ const ToDoList = observer(({ listData, setToDoList }: ToDoListProps) => {
               </ListItemIcon>
               <ListItemText id={id.toString()} >
                 <Typography variant='body1'>
-                  {`${body}`}
+                  {body}
                 </Typography>
               </ListItemText>
             </ListItemButton>

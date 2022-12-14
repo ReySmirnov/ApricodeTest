@@ -6,14 +6,14 @@ import { observer } from "mobx-react-lite";
 import { AxiosError } from "axios";
 
 type PopoverContentProps = {
-  onToDoAdd: () => void;
+  onToDoAdded: () => void;
 };
 
-const PopoverContent = observer(({ onToDoAdd }: PopoverContentProps) => {
+const PopoverContent = observer(({ onToDoAdded }: PopoverContentProps) => {
   const handleSubmit = (body: { inputToDo: string }) => {
     return addToDo(body)
       .then(() => {
-        onToDoAdd();
+        onToDoAdded();
       })
       .catch((err) => {
         if (err instanceof AxiosError && err.response?.status === 400) {

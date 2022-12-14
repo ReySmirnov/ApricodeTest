@@ -15,7 +15,7 @@ const ToDoListPage = observer(() => {
     setCurrentFilter({ doneStatus: status });
   };
 
-  const handleToDoAdd = () => {
+  const handleToDoAdded = () => {
     getToDo().then((res) => {
       setToDoList(res);
     });
@@ -49,7 +49,7 @@ const ToDoListPage = observer(() => {
               <Box>
                 <ToDoFilterSelect
                   onChangeStatus={handleChangeStatus}
-                  status={toDoListFilter.doneStatus!}
+                  status={toDoListFilter.doneStatus}
                 />
               </Box>
             </Box>
@@ -61,7 +61,7 @@ const ToDoListPage = observer(() => {
               )}
             </Box>
             <Box textAlign="center">
-              <AddToDoPopover onToDoAdd={handleToDoAdd} />
+              <AddToDoPopover onToDoAdded={handleToDoAdded} />
             </Box>
           </Box>
         </Box>

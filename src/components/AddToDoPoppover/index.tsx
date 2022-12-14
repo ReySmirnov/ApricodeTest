@@ -5,14 +5,14 @@ import Button from "@mui/material/Button";
 import { Box } from "@mui/material";
 import PopoverContent from "./PopoverContent";
 
-type AddToDoPopover = { onToDoAdd: () => void };
+type AddToDoPopover = { onToDoAdded: () => void };
 
-const AddToDoPopover = ({ onToDoAdd }: AddToDoPopover) => {
+const AddToDoPopover = ({ onToDoAdded }: AddToDoPopover) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const anchorEl = useRef(null);
 
-  const handleToDoAdd = () => {
-    onToDoAdd();
+  const handleToDoAdded = () => {
+    onToDoAdded();
     setIsOpen(false);
   };
 
@@ -42,7 +42,7 @@ const AddToDoPopover = ({ onToDoAdd }: AddToDoPopover) => {
           horizontal: "center",
         }}
       >
-        <PopoverContent onToDoAdd={handleToDoAdd} />
+        <PopoverContent onToDoAdded={handleToDoAdded} />
       </Popover>
     </Box>
   );
