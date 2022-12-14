@@ -6,7 +6,7 @@ import { observer } from "mobx-react-lite";
 import { ToDoData } from "../../components/ToDoListContext";
 
 const ToDoListPage = observer(() => {
-  const { setToDoList, toDoListData } = useContext(ToDoData);
+  const { setToDoList, toDoListData, setToDoItem } = useContext(ToDoData);
 
   useEffect(() => {
     getToDo().then((res) => {
@@ -28,7 +28,11 @@ const ToDoListPage = observer(() => {
             <Typography variant="h5" textAlign="center">
               To Do List
             </Typography>
-            {toDoListData ? <ToDoList listData={toDoListData} /> : <CircularProgress />}
+            {toDoListData ? (
+              <ToDoList listData={toDoListData} setListItem={setToDoItem} setToDoList={setToDoList}/>
+            ) : (
+              <CircularProgress />
+            )}
           </Box>
         </Box>
       </Paper>
