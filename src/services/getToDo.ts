@@ -2,9 +2,11 @@ import axios, { AxiosResponse } from "axios";
 
 export type ToDoProps = { id: number; done: boolean; body: string }[];
 
-export const getToDo = (): Promise<ToDoProps> =>
-  axios.get("/api/toDoList").then((response: AxiosResponse<ToDoProps>) => {
-    return response.data;
+export type getToDoFilters = {doneStatus?:'done'|'undone'|'all'}
+
+export const getToDo = (filter?:getToDoFilters): Promise<ToDoProps> =>
+  axios.get("/api/toDoList", {params:filter}).then((res: AxiosResponse<ToDoProps>) => {
+    return res.data;
   });
 
 export const markDoneToDo = (id: number): Promise<ToDoProps> =>
@@ -30,3 +32,4 @@ export const addToDo = (body:{inputToDo:string}):Promise<ToDoProps> =>
     axios.post("/api/toDoList", body ).then((res:AxiosResponse<ToDoProps>)=>{
         return res.data
     })
+

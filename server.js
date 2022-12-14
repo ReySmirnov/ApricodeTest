@@ -17,6 +17,12 @@ const middlewares = jsonServer.defaults();
 server.use(middlewares);
 
 server.get("/api/toDoList", (req, res) => {
+  if (req.query.doneStatus === "done") {
+    return res.jsonp(dataToDoList.filter((el) => el.done));
+  }
+  if (req.query.doneStatus === "undone") {
+    return res.jsonp(dataToDoList.filter((el) => !el.done));
+  }
   res.jsonp(dataToDoList);
 });
 

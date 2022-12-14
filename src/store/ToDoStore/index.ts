@@ -1,11 +1,14 @@
 import { makeObservable, observable } from "mobx";
+import {getToDoFilters} from "../../services/getToDo";
 
 export class ToDoStore {
   toDoListData: { id: number; done: boolean; body: string }[] | null = null;
+  toDoListFilter: getToDoFilters = {doneStatus:'all'}
 
   constructor() {
     makeObservable(this, {
       toDoListData: observable,
+      toDoListFilter: observable,
     });
   }
 
@@ -13,4 +16,7 @@ export class ToDoStore {
     this.toDoListData = toDoArr;
   };
 
+  setCurrentFilter = (filter:getToDoFilters) => {
+    this.toDoListFilter = filter
+  }
 }
